@@ -28,19 +28,15 @@ public class AlumnoController {
 	@GetMapping()
 	public ResponseEntity<?> getAlumno(){
 		return ResponseEntity.ok().body(alumnoRepository.findAll());
-		
 	}
 	
 	@GetMapping("{id}")
 	public ResponseEntity<Object> getAlumno(@PathVariable("id") UUID id){
 		return ResponseEntity.ok().body(alumnoRepository.findById(id));
-		
 	}
 	
 	@PostMapping()
 	public ResponseEntity<?> postAlumno(@RequestBody AlumnoModel misDatos){
-	System.out.println(misDatos);
-	misDatos.setId( UUID.randomUUID());
 		alumnoRepository.save(misDatos);
 		return ResponseEntity.ok().body("Soy un Post");
 	}
@@ -50,15 +46,21 @@ public class AlumnoController {
 		AlumnoModel alumnoModel = new AlumnoModel();
 		alumnoModel = alumnoRepository.findById(id).orElse(null);
 		alumnoModel.setNombre(misDatos.getNombre());
+		alumnoModel.setEdad(misDatos.getEdad());
+		alumnoModel.setRut(misDatos.getRut());
+		alumnoModel.setCurso(misDatos.getCurso());
 		alumnoRepository.save(alumnoModel);
-		
+	
 			return ResponseEntity.ok().body("Soy una actualización");
 		}
 	
-	@DeleteMapping()
-	public ResponseEntity<?> deleteAlumno(){
-		alumnoRepository.deleteById(id)
+	@DeleteMapping("{id}")
+	public ResponseEntity<?> deleteAlumno(@RequestBody AlumnoModel misDatos, @PathVariable("id") UUID id){
+		misDatos.setId( UUID.randomUUID());
+		alumnoRepository.deleteById(id);
 			return ResponseEntity.ok().body("Soy un borrador");
+			
+		
 		}
 	
 

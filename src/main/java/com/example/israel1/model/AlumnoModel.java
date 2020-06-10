@@ -35,6 +35,7 @@ public class AlumnoModel {
 
 	public AlumnoModel(String nombre, int edad, String rut, String curso) {
 		super();
+		this.id = UUID.randomUUID();
 		this.nombre = nombre;
 		this.edad = edad;
 		this.rut = rut;
