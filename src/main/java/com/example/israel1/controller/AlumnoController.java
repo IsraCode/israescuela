@@ -37,6 +37,7 @@ public class AlumnoController {
 	
 	@PostMapping()
 	public ResponseEntity<?> postAlumno(@RequestBody AlumnoModel misDatos){
+		misDatos.setId( UUID.randomUUID());
 		alumnoRepository.save(misDatos);
 		return ResponseEntity.ok().body("Soy un Post");
 	}
